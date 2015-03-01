@@ -1,4 +1,5 @@
 files/.config/configstore
+files/.config/gh*
 files/.config/git
 files/.ssh/*id*
 files/.ssh/authorized_keys
