@@ -1,4 +1,4 @@
-My dotfiles configuration. After using a forked version for a while I decided to customize my own version.
+My _dot files_ configuration. After using a forked version for a while I decided to customize my own version.
 
 ## Setup
 
