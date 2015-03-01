@@ -1,3 +1,6 @@
 files/.config/configstore
 files/.config/git
+files/.ssh/*id*
+files/.ssh/authorized_keys
+files/.ssh/known_hosts
 files/.tmuxinator
