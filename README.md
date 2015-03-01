@@ -1,10 +1,8 @@
-## .dot-files
-
-My dot-files configuration. After using a forked version for a while I decided to start customizing my own version.
+My dotfiles configuration. After using a forked version for a while I decided to customize my own version.
 
 ## Setup
 
-Before reusing this configuration please update accordingly:
+Before reusing this configuration please change:
 
 - [files/.gitconfig](https://github.com/colmarius/dot-files/blob/master/files/.gitconfig)
 - [clone_and_link.sh](https://github.com/colmarius/dot-files/blob/master/clone_and_link.sh#L10)
@@ -18,3 +16,8 @@ Before reusing this configuration please update accordingly:
 Heavily inspired by:
 
 - [benhoskings/dot-files](https://github.com/benhoskings/dot-files)
+
+## Resources
+
+- [Dotfiles should be forked](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/)
+- [Github dotfiles](https://dotfiles.github.io/)
