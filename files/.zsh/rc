@@ -1,3 +1,7 @@
+
+. ~/.zsh/prompt
+. ~/.zsh/options
+
 # Env vars
 if [ $(uname -s) = 'Darwin' ]; then
   export LANG="en_AU.UTF-8"
