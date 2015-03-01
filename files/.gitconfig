@@ -1,0 +1,17 @@
+[push]
+	default = upstream
+[user]
+	name = Marius Colacioiu
+	email = marius.colacioiu@gmail.com
+[color]
+	ui = auto
+[core]
+	excludesfile = /Users/marius/.gitignore
+[credential]
+	helper = osxkeychain
+[github]
+	user = colmarius
+[diff]
+	submodule = log
+[column]
+	ui = auto,dense
