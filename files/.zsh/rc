@@ -1,6 +1,7 @@
 
 . ~/.zsh/prompt
 . ~/.zsh/options
+. ~/.zsh/git-aliases
 . ~/.zsh/ruby
 . ~/.zsh/private-exports
 
