@@ -1,0 +1,40 @@
+if [ `uname` = 'Darwin' ]; then
+  alias ls='ls -G'
+  alias du='du -k -d 1 $argv'
+else
+  alias ls='ls --color=auto'
+  alias du='du -k --max-depth=1 $argv'
+fi
+
+alias boot='script/boot'
+alias df='df -kh $argv'
+alias fr='flash run'
+alias fup='flash run update-master'
+alias h='history -100 -1 | grep'
+alias l='ls'
+alias ll='ls -lh'
+alias la='ls -a'
+alias lal='ls -lah'
+alias less='less -R'
+alias sub='subl -n'
+alias sub.='sub .'
+
+cd() {
+  builtin cd "$@" && ls
+}
+
+b() {
+  bundle "$@" | grep -v '^Using'
+}
+
+p() {
+  cd "$(find ~/Work ~/Projects ~/Learn -type d -maxdepth 3 -name .git | sed -e 's/\/\.git$//' | selecta)"
+}
+
+history-stats() {
+  look_back_count=${1:-10000}
+  keep_only_count=$([ $# -gt 1 ] && echo "$2" || echo "10")
+
+  echo "Showing in past $look_back_count history entries most used $keep_only_count commands."
+  history -$look_back_count -1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n$keep_only_count
+}
