@@ -1,6 +1,7 @@
 
 . ~/.zsh/prompt
 . ~/.zsh/options
+. ~/.zsh/private-exports
 
 # Env vars
 if [ $(uname -s) = 'Darwin' ]; then
