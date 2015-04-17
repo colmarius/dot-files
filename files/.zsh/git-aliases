@@ -1,8 +1,8 @@
 
-if type gh >/dev/null; then
-  alias git=gh
+if type hub >/dev/null; then
+  alias git=hub
   if type compdef >/dev/null 2>/dev/null; then
-     compdef gh=git
+     compdef hub=git
   fi
 fi
 
