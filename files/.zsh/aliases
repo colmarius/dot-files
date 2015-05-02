@@ -28,7 +28,7 @@ b() {
 }
 
 p() {
-  cd "$(find ~/Work ~/Projects ~/Learn -type d -maxdepth 3 -name .git | sed -e 's/\/\.git$//' | selecta)"
+  cd "$(find ~/Work ~/Projects -type d -maxdepth 3 -name .git | sed -e 's/\/\.git$//' | selecta)"
 }
 
 history-stats() {
