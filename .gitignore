@@ -5,4 +5,5 @@ files/.ssh/*id*
 files/.ssh/authorized_keys
 files/.ssh/known_hosts
 files/.tmuxinator/*
+files/.zsh/private-aliases
 files/.zsh/private-exports

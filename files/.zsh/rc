@@ -6,6 +6,9 @@
 . ~/.zsh/git-aliases
 . ~/.zsh/ruby
 
+# Load private aliases if any
+[ -f ~/.zsh/private-aliases ] && . ~/.zsh/private-aliases
+
 # Load private exports if any
 [ -f ~/.zsh/private-exports ] && . ~/.zsh/private-exports
 
