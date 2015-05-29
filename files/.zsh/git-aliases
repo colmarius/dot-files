@@ -54,6 +54,7 @@ alias glog='git log --date-order --pretty="format:%C(yellow)%h%Cblue%d%Creset %s
 alias gl='glog --graph'
 alias gla='gl --all'
 alias glo='gl origin/$(git_current_branch)..'
+alias glr='glog --reverse'
 gls() {
   query="$1"
   shift
