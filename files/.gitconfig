@@ -15,3 +15,5 @@
 	submodule = log
 [column]
 	ui = auto,dense
+[branch]
+	autosetuprebase = always
