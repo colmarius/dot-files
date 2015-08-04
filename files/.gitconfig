@@ -17,3 +17,5 @@
 	ui = auto,dense
 [branch]
 	autosetuprebase = always
+[rerere]
+	enabled = true
