@@ -1,2 +1,6 @@
 .DS_Store
 .rbx/
+
+# Ignore bundle configs.
+bin/
+vendor/
