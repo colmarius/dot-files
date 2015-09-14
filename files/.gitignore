@@ -2,5 +2,6 @@
 .rbx/
 
 # Ignore bundle configs.
+.bundle
 bin/
 vendor/
