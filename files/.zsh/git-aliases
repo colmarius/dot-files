@@ -39,6 +39,7 @@ alias gdc='git diff --cached -M'
 alias gdc.='git diff --cached -M --color-words="."'
 alias gdo='gd origin/$(git_current_branch)..'
 alias gf='git fetch'
+alias gg='git grep'
 git-new() {
   [ -d "$1" ] || mkdir "$1" &&
   cd "$1" &&
