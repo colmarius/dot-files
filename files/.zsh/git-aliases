@@ -29,6 +29,7 @@ gca() {
     git commit -v -a "$@"
 }
 alias gcam='gca --amend'
+alias gcdeploy='gc --allow-empty -m "Deploy"'
 alias gch='git cherry-pick'
 alias gcm='git commit -v --amend'
 alias gco='git checkout'
