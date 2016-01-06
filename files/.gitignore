@@ -4,4 +4,4 @@
 # Ignore bundle configs.
 .bundle
 bin/
-vendor/
+vendor/bundle
