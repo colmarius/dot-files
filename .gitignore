@@ -1,4 +1,5 @@
 files/.config/configstore
+files/.config/direnv/
 files/.config/hub*
 files/.config/git
 files/.ssh/*id*
