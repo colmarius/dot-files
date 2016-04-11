@@ -3,6 +3,7 @@
 [user]
 	name = Marius Colacioiu
 	email = marius.colacioiu@gmail.com
+	signingkey = 226C57CF
 [color]
 	ui = auto
 [core]
