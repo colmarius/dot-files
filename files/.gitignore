@@ -1,5 +1,6 @@
 .DS_Store
 .rbx/
+.envrc
 
 # Ignore bundle configs.
 .bundle
