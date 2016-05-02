@@ -7,6 +7,7 @@
 . ~/.zsh/git-aliases
 . ~/.zsh/ruby
 . ~/.zsh/node
+. ~/.zsh/docker
 
 # Load private aliases if any
 [ -f ~/.zsh/private-aliases ] && . ~/.zsh/private-aliases
