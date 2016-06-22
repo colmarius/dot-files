@@ -27,7 +27,7 @@ if [ $operation == "on" ]
 
   if [ $? != 0 ]
   then
-    mux start $tmuxinator_config
+    tmuxinator start $tmuxinator_config
   else
     echo "tmux: $tmuxinator_config session is already running."
   fi
