@@ -6,7 +6,8 @@
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
 . ~/.zsh/ruby
-. ~/.zsh/node
+. ~/.zsh/nvm
+. ~/.zsh/nvm-autoload
 . ~/.zsh/docker
 
 # Load private aliases if any
