@@ -10,7 +10,6 @@
 . ~/.zsh/nix
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
-. ~/.zsh/docker
 
 # Load private aliases if any
 [ -f ~/.zsh/private-aliases ] && . ~/.zsh/private-aliases
