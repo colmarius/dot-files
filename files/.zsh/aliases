@@ -18,8 +18,8 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
-alias sub='subl -n'
-alias sub.='sub .'
+alias sub='a'
+alias sub.='a.'
 
 cd() {
   builtin cd "$@" && ls
