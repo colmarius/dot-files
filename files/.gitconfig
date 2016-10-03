@@ -8,6 +8,7 @@
 	ui = auto
 [core]
 	excludesfile = /Users/marius/.gitignore
+	editor = atom-beta --wait
 [credential]
 	helper = osxkeychain
 [github]
