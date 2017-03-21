@@ -6,6 +6,7 @@
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
 . ~/.zsh/ruby
+. ~/.zsh/nix
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
 . ~/.zsh/docker
