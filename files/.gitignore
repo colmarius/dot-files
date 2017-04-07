@@ -2,7 +2,10 @@
 .rbx/
 .envrc
 
-# Ignore bundle configs.
+# Ignore bundle config
 .bundle
 bin/
 vendor/bundle
+
+# Ignore yarn config
+files/.config/yarn
