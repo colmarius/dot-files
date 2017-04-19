@@ -22,10 +22,10 @@
 if [ $(uname -s) = 'Darwin' ]; then
   export LANG="en_AU.UTF-8"
   export EDITOR='subl -n -w'
-  export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin"
+  export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin:${PATH}"
   export MANPATH="/usr/local/share/man:/usr/X11/man:/usr/share/man"
 else
-  export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+  export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
 fi
 
 # Added by Nix installer
