@@ -2,6 +2,7 @@ files/.config/configstore
 files/.config/direnv/
 files/.config/hub*
 files/.config/git
+files/.config/yarn
 files/.ssh/*id*
 files/.ssh/authorized_keys
 files/.ssh/known_hosts

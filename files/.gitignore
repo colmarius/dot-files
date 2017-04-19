@@ -6,6 +6,3 @@
 .bundle
 bin/
 vendor/bundle
-
-# Ignore yarn config
-files/.config/yarn
