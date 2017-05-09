@@ -7,7 +7,7 @@
 [color]
 	ui = auto
 [core]
-	excludesfile = /Users/marius/.gitignore
+	excludesfile = /Users/marius.colacioiu/.gitignore
 	editor = atom --wait
 [credential]
 	helper = osxkeychain
