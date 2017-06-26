@@ -6,3 +6,6 @@
 .bundle
 bin/
 vendor/bundle
+
+# Ignore tags
+.tags*
