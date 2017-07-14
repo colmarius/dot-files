@@ -35,10 +35,10 @@ alias gcm='git commit -v --amend'
 alias gco='git checkout'
 alias gcop='gco -p'
 gd() {
-  git diff --color -M "$@" | diff-so-fancy
+  git diff --color -M "$@" | diff-so-fancy | less --tabs=4 -RFX
 }
 gdc() {
-  git diff  --cached --color -M "$@" | diff-so-fancy
+  git diff  --cached --color -M "$@" | diff-so-fancy | less --tabs=4 -RFX
 }
 alias gdo='gd origin/$(git_current_branch)..'
 alias gf='git fetch'
@@ -85,7 +85,9 @@ alias grl='git reflog'
 alias grp='gr --patch'
 alias grsh='git reset --soft HEAD~'
 alias grv='git remote -v'
-alias gs='git show --color | diff-so-fancy'
+gs() {
+  git show --color "$@" | diff-so-fancy | less --tabs=4 -RFX
+}
 alias gst='git stash'
 alias gstp='git stash pop'
 alias gup='git smart-pull'
