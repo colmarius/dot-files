@@ -34,8 +34,12 @@ alias gch='git cherry-pick'
 alias gcm='git commit -v --amend'
 alias gco='git checkout'
 alias gcop='gco -p'
-alias gd='git diff --color -M | diff-so-fancy'
-alias gdc='git diff --cached --color -M | diff-so-fancy'
+gd() {
+  git diff --color -M "$@" | diff-so-fancy
+}
+gdc() {
+  git diff  --cached --color -M "$@" | diff-so-fancy
+}
 alias gdo='gd origin/$(git_current_branch)..'
 alias gf='git fetch'
 alias gg='git grep'
