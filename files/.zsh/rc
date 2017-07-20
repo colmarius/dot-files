@@ -27,6 +27,3 @@ if [ $(uname -s) = 'Darwin' ]; then
 else
   export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
 fi
-
-# Added by Nix installer
-if [ -e /Users/marius/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/marius/.nix-profile/etc/profile.d/nix.sh; fi
