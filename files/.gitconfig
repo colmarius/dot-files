@@ -8,7 +8,7 @@
 	ui = auto
 [core]
 	excludesfile = /Users/marius.colacioiu/.gitignore
-	editor = atom --wait
+	editor = vi
 [credential]
 	helper = osxkeychain
 [github]
