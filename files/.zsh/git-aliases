@@ -31,6 +31,7 @@ gca() {
 alias gcam='gca --amend'
 alias gcdeploy='gc --allow-empty -m "Deploy"'
 alias gch='git cherry-pick'
+alias gclean='git remote prune origin; git gc'
 alias gcm='git commit -v --amend'
 alias gco='git checkout'
 alias gcop='gco -p'
