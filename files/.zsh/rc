@@ -11,6 +11,7 @@
 . ~/.zsh/nix
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
+. ~/.zsh/anaconda
 
 # Load private aliases if any
 [ -f ~/.zsh/private-aliases ] && . ~/.zsh/private-aliases
