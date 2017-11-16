@@ -6,12 +6,11 @@
 . ~/.zsh/direnv
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
-. ~/.zsh/miniconda
 . ~/.zsh/ruby
 . ~/.zsh/nix
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
-. ~/.zsh/anaconda
+. ~/.zsh/conda
 
 # Load private aliases if any
 [ -f ~/.zsh/private-aliases ] && . ~/.zsh/private-aliases
