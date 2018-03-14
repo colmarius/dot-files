@@ -8,6 +8,7 @@ fi
 
 alias a='atom'
 alias a.='a .'
+alias be='bundle exec'
 alias boot='script/boot'
 alias df='df -kh $argv'
 alias fr='flash run'
