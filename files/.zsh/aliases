@@ -9,18 +9,13 @@ fi
 alias a='atom'
 alias a.='a .'
 alias be='bundle exec'
-alias boot='script/boot'
 alias df='df -kh $argv'
-alias fr='flash run'
-alias fup='flash run update-master'
 alias h='history -100 -1 | grep'
 alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
-alias sub='a'
-alias sub.='a.'
 
 cd() {
   builtin cd "$@" && ls
