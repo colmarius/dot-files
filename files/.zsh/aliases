@@ -16,6 +16,7 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
+alias pp='phraseapp pull'
 
 cd() {
   builtin cd "$@" && ls
