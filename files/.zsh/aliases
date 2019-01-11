@@ -11,12 +11,14 @@ alias a.='a .'
 alias be='bundle exec'
 alias df='df -kh $argv'
 alias h='history -100 -1 | grep'
+alias nu='nvm use'
 alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
 alias pp='phraseapp pull'
+alias y='yarn'
 
 cd() {
   builtin cd "$@" && ls
