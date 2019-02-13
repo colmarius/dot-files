@@ -49,3 +49,7 @@ prettify_js() {
 random_user() {
   env LC_CTYPE=C LC_ALL=C tr -cd "a-z0-9" < /dev/urandom | head -c 10
 }
+
+vscode() {
+  open -a /Applications/Visual\ Studio\ Code.app "$@"
+}
