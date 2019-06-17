@@ -51,5 +51,6 @@ random_user() {
 }
 
 vscode() {
-  open -a /Applications/Visual\ Studio\ Code.app "$@"
+  open -a ~/Applications/Visual\ Studio\ Code.app "$@"
 }
+alias v=vscode
