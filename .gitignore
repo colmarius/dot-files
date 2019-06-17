@@ -1,6 +1,7 @@
 files/.config/configstore
 files/.config/direnv/
 files/.config/hub*
+files/.config/gatsby
 files/.config/git
 files/.config/yarn
 files/.ssh/*id*
