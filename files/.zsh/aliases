@@ -6,8 +6,8 @@ else
   alias du='du -k --max-depth=1 $argv'
 fi
 
-alias a='atom'
-alias a.='a .'
+alias a='vscode'
+alias a.='vscode .'
 alias be='bundle exec'
 alias df='df -kh $argv'
 alias h='history -100 -1 | grep'
@@ -54,3 +54,4 @@ vscode() {
   open -a ~/Applications/Visual\ Studio\ Code.app "$@"
 }
 alias v=vscode
+alias v.="vscode ."
