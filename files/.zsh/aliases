@@ -6,8 +6,8 @@ else
   alias du='du -k --max-depth=1 $argv'
 fi
 
-alias a='vscode'
-alias a.='vscode .'
+alias a='code'
+alias a.='code .'
 alias be='bundle exec'
 alias df='df -kh $argv'
 alias h='history -100 -1 | grep'
@@ -49,9 +49,3 @@ prettify_js() {
 random_user() {
   env LC_CTYPE=C LC_ALL=C tr -cd "a-z0-9" < /dev/urandom | head -c 10
 }
-
-vscode() {
-  open -a ~/Applications/Visual\ Studio\ Code.app "$@"
-}
-alias v=vscode
-alias v.="vscode ."
