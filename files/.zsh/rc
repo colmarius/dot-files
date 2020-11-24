@@ -8,7 +8,6 @@
 . ~/.zsh/git-aliases
 . ~/.zsh/mongo
 . ~/.zsh/ruby
-. ~/.zsh/nix
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
 
