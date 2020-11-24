@@ -88,7 +88,7 @@ alias grl='git reflog'
 alias grp='gr --patch'
 alias grsh='git reset --soft HEAD~'
 alias grv='git remote -v'
-glogmerges() {
+glog-merges-since() {
   git --git-dir=.git log --pretty="* %B" --first-parent --merges --since="$@"
 }
 gs() {
