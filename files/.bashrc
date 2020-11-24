@@ -6,4 +6,3 @@ bind "set show-all-if-ambiguous On"
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
 . ~/.zsh/nvm
-. ~/.zsh/conda
