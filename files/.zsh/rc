@@ -1,5 +1,4 @@
 
-. ~/.zsh/android
 . ~/.zsh/prompt
 . ~/.zsh/options
 . ~/.zsh/completion
