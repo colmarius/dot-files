@@ -3,6 +3,7 @@
 Libraries needed to install when setting up on a new computer:
 
 Terminal tools:
+- [brew]: package manager for macOS (or Linux)
 - [direnv]: unclutter your .profile
 - [selecta]: a fuzzy text selector for files and anything else you need to select
 - [diff-so-fancy]: good-lookin' diffs
@@ -13,6 +14,7 @@ Web development
 - [meteor]: open source framework for seamlessly building and deploying Web, Mobile, and Desktop applications in Javascript
 - [mongo]: nosql document-oriented database
 
+[brew]: https://brew.sh
 [direnv]: https://direnv.net
 [selecta]: https://github.com/garybernhardt/selecta
 [diff-so-fancy]: https://github.com/so-fancy/diff-so-fancy
