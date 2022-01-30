@@ -11,6 +11,7 @@ Terminal tools:
 
 Web development
 - [nvm]: Node Version Manager
+- [yarn]: fast package manager for JavaScript
 - [meteor]: open source framework for seamlessly building and deploying Web, Mobile, and Desktop applications in Javascript
 - [mongo]: nosql document-oriented database
 
@@ -21,5 +22,6 @@ Web development
 [git-smart]: https://github.com/geelen/git-smart
 
 [nvm]: https://github.com/nvm-sh/nvm#install--update-script
+[yarn]: https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable
 [meteor]: https://www.meteor.com/developers/install
 [mongo]: https://docs.mongodb.com/v4.4/tutorial/install-mongodb-on-os-x/
