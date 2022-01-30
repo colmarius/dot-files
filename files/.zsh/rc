@@ -5,6 +5,7 @@
 . ~/.zsh/direnv
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
+. ~/.zsh/meteor
 . ~/.zsh/mongo
 . ~/.zsh/ruby
 . ~/.zsh/nvm
