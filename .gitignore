@@ -1,5 +1,6 @@
 files/.config/configstore
 files/.config/direnv/
+files/.config/gcloud/
 files/.config/hub*
 files/.config/gatsby
 files/.config/git
