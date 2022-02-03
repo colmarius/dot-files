@@ -40,3 +40,7 @@ history-stats() {
   echo "Showing in past $look_back_count history entries most used $keep_only_count commands."
   history -$look_back_count -1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n$keep_only_count
 }
+
+brew-setup() {
+  sudo chown -R $(whoami) /opt/homebrew /opt/homebrew/lib/pkgconfig /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/locks
+}
