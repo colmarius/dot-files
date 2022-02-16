@@ -11,6 +11,8 @@ Before reusing this configuration please change:
 
     bash <(curl -fsS https://raw.githubusercontent.com/colmarius/dot-files/master/clone_and_link.sh)
 
+Optionally, follow steps in [SETUP.md](https://github.com/colmarius/dot-files/blob/master/SETUP.md)
+
 ## Credits
 
 Heavily inspired by:
