@@ -17,6 +17,7 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
+alias mnpm='meteor npm'
 alias pp='phraseapp pull'
 alias y='yarn'
 
