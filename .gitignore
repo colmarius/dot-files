@@ -1,5 +1,6 @@
 files/.config/configstore
 files/.config/direnv/
+files/.config/firebase/
 files/.config/gcloud/
 files/.config/iterm2/
 files/.config/hub*
