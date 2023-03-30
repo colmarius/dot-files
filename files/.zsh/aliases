@@ -43,5 +43,5 @@ history-stats() {
 }
 
 brew-setup() {
-  sudo chown -R $(whoami) /opt/homebrew /opt/homebrew/lib/pkgconfig /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/locks
+  sudo chown -R $(whoami) /usr/local /usr/local/lib/pkgconfig /usr/local/share/zsh /usr/local/share/zsh/site-functions /usr/local/var/homebrew/locks
 }
