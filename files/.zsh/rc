@@ -6,8 +6,6 @@
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
 . ~/.zsh/google-cloud
-. ~/.zsh/meteor
-. ~/.zsh/mongo
 . ~/.zsh/ruby
 . ~/.zsh/python
 . ~/.zsh/nvm
