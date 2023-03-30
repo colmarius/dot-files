@@ -7,7 +7,7 @@ pushd "$HOME"
       git smart-pull
     popd
   else
-    git clone "git://github.com/colmarius/dot-files.git" ".dot-files"
+    git clone "git@github.com:colmarius/dot-files.git" ".dot-files"
   fi
 
   ls -1d .dot-files/files/* .dot-files/files/.* | while read f; do
