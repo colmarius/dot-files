@@ -5,4 +5,5 @@ bind "set show-all-if-ambiguous On"
 
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
+. ~/.zsh/npm-completion
 . ~/.zsh/nvm

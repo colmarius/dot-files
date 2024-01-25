@@ -8,6 +8,7 @@
 . ~/.zsh/google-cloud
 . ~/.zsh/ruby
 . ~/.zsh/python
+. ~/.zsh/npm-completion
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
 
