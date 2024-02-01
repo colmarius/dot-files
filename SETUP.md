@@ -3,6 +3,7 @@
 Libraries needed to install when setting up on a new computer:
 
 Terminal tools:
+
 - [brew]: package manager for macOS (or Linux)
 - [direnv]: unclutter your .profile
 - [selecta]: a fuzzy text selector for files and anything else you need to select
@@ -10,18 +11,12 @@ Terminal tools:
 - [git-smart]: add some smarts to your git workflow
 
 Web development
+
 - [nvm]: Node Version Manager
-- [yarn]: fast package manager for JavaScript
-- [meteor]: open source framework for seamlessly building and deploying Web, Mobile, and Desktop applications in Javascript
-- [mongo]: nosql document-oriented database
 
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
 [selecta]: https://github.com/garybernhardt/selecta
 [diff-so-fancy]: https://github.com/so-fancy/diff-so-fancy
 [git-smart]: https://github.com/geelen/git-smart
-
 [nvm]: https://github.com/nvm-sh/nvm#install--update-script
-[yarn]: https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable
-[meteor]: https://www.meteor.com/developers/install
-[mongo]: https://docs.mongodb.com/v4.4/tutorial/install-mongodb-on-os-x/
