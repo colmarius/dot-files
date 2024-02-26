@@ -13,6 +13,8 @@ Terminal tools:
 Web development
 
 - [nvm]: Node Version Manager
+- [pyenv]: Python Version Manager
+- [chruby]: Ruby Version Manager
 
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
@@ -20,3 +22,5 @@ Web development
 [diff-so-fancy]: https://github.com/so-fancy/diff-so-fancy
 [git-smart]: https://github.com/geelen/git-smart
 [nvm]: https://github.com/nvm-sh/nvm#install--update-script
+[pyenv]: https://github.com/pyenv/pyenv
+[chruby]: https://github.com/postmodern/chruby
