@@ -16,6 +16,11 @@ Web development
 - [pyenv]: Python Version Manager
 - [chruby]: Ruby Version Manager
 
+Cloud severless development
+
+- [gcloud]: Cloud SDK
+- [firebase-tools]: Firebase Tools
+
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
 [selecta]: https://github.com/garybernhardt/selecta
@@ -24,3 +29,5 @@ Web development
 [nvm]: https://github.com/nvm-sh/nvm#install--update-script
 [pyenv]: https://github.com/pyenv/pyenv
 [chruby]: https://github.com/postmodern/chruby
+[gcloud]: https://cloud.google.com/sdk/docs/install
+[firebase-tools]: https://firebase.google.com/docs/cli#mac-linux-npm
