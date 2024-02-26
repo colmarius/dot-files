@@ -1,6 +1,22 @@
 ## Setup new tools
 
+Recommend to use [iterm2] as Mac terminal.
+
 Libraries needed to install when setting up on a new computer:
+
+After installing [brew] simply run:
+
+    brew install direnv
+    brew install selecta
+    brew install diff-so-fancy
+    brew install nvm
+    brew install pyenv
+    brew install chruby
+
+    ruby-install # see version
+    pyenv install # see version
+
+    gem install git-smart
 
 Terminal tools:
 
@@ -21,6 +37,7 @@ Cloud severless development
 - [gcloud]: Cloud SDK
 - [firebase-tools]: Firebase Tools
 
+[iterm2]: https://iterm2.com
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
 [selecta]: https://github.com/garybernhardt/selecta
