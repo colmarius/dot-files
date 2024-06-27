@@ -6,7 +6,6 @@
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
 . ~/.zsh/google-cloud
-. ~/.zsh/java
 . ~/.zsh/ruby
 . ~/.zsh/python
 . ~/.zsh/npm-completion
@@ -28,3 +27,6 @@ if [ $(uname -s) = 'Darwin' ]; then
 else
   export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
 fi
+
+# Load sensitive paths
+. ~/.zsh/java
