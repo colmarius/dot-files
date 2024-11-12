@@ -1,5 +1,5 @@
 bindkey -e
-bindkey "^[[1;3D" backward-word
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;4D" beginning-of-line
-bindkey "^[[1;4C" end-of-line
+bindkey "^[[1;3D" backward-word      # Option + Left Arrow
+bindkey "^[[1;3C" forward-word       # Option + Right Arrow
+bindkey "^[[1;4D" beginning-of-line  # Option + Shift + Left Arrow
+bindkey "^[[1;4C" end-of-line        # Option + Shift + Right Arrow
