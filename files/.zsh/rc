@@ -2,6 +2,7 @@
 . ~/.zsh/prompt
 . ~/.zsh/options
 . ~/.zsh/completion
+. ~/.zsh/bindkeys
 . ~/.zsh/direnv
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
