@@ -9,9 +9,11 @@ After installing [brew] simply run:
     brew install direnv
     brew install selecta
     brew install diff-so-fancy
+    brew install ripgrep
     brew install nvm
     brew install pyenv
     brew install chruby
+    brew install ruby-install
 
     ruby-install # see version
     pyenv install # see version
