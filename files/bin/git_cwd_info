@@ -30,11 +30,11 @@ def git_cwd_dirty
 end
 
 def rebasing_etc
-  if File.exists?(File.join(git_repo_path, 'BISECT_LOG'))
+  if File.exist?(File.join(git_repo_path, 'BISECT_LOG'))
     "+bisect"
-  elsif File.exists?(File.join(git_repo_path, 'MERGE_HEAD'))
+  elsif File.exist?(File.join(git_repo_path, 'MERGE_HEAD'))
     "+merge"
-  elsif %w[rebase rebase-apply rebase-merge ../.dotest].any? {|d| File.exists?(File.join(git_repo_path, d)) }
+  elsif %w[rebase rebase-apply rebase-merge ../.dotest].any? {|d| File.exist?(File.join(git_repo_path, d)) }
     "+rebase"
   end
 end
