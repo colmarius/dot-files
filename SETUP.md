@@ -25,6 +25,7 @@ Terminal tools:
 - [selecta]: a fuzzy text selector for files and anything else you need to select
 - [diff-so-fancy]: good-lookin' diffs
 - [ripgrep]: recursively searches directories for a regex pattern while respecting your gitignore
+- [semgrep]: lightweight static analysis for many languages
 
 Web development
 
@@ -48,3 +49,4 @@ Cloud severless development
 [chruby]: https://github.com/postmodern/chruby
 [gcloud]: https://cloud.google.com/sdk/docs/install
 [firebase-tools]: https://firebase.google.com/docs/cli#mac-linux-npm
+[semgrep]: https://github.com/semgrep/semgrep
