@@ -32,6 +32,7 @@ Web development
 - [nvm]: Node Version Manager
 - [pyenv]: Python Version Manager
 - [chruby]: Ruby Version Manager
+- [biome]: Biome is a fast formatter for JavaScript, TypeScript, JSX, TSX
 
 Cloud severless development
 
@@ -50,3 +51,4 @@ Cloud severless development
 [gcloud]: https://cloud.google.com/sdk/docs/install
 [firebase-tools]: https://firebase.google.com/docs/cli#mac-linux-npm
 [semgrep]: https://github.com/semgrep/semgrep
+[biome]: https://biomejs.dev/guides/manual-installation
