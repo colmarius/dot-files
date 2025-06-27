@@ -4,6 +4,7 @@
 . ~/.zsh/completion
 . ~/.zsh/bindkeys
 . ~/.zsh/direnv
+. ~/.zsh/ghostty
 . ~/.zsh/aliases
 . ~/.zsh/git-aliases
 . ~/.zsh/google-cloud
