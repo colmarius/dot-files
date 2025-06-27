@@ -39,7 +39,7 @@ Cloud severless development
 - [gcloud]: Cloud SDK
 - [firebase-tools]: Firebase Tools
 
-[iterm2]: https://iterm2.com
+[ghostty]: https://ghostty.org/download
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
 [selecta]: https://github.com/garybernhardt/selecta
