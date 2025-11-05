@@ -3,6 +3,11 @@
 [user]
 	name = Marius Colacioiu
 	email = marius.colacioiu@gmail.com
+  signingkey = /Users/marius/.ssh/id_rsa.pub
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
 [color]
 	ui = auto
 [core]
