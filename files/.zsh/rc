@@ -13,6 +13,7 @@
 . ~/.zsh/npm-completion
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
+. ~/.zsh/ssh
 
 # Load private aliases if any
 [ -f ~/.zsh/private-aliases ] && . ~/.zsh/private-aliases
