@@ -21,6 +21,8 @@ alias mnpm='meteor npm'
 alias pp='phraseapp pull'
 alias y='yarn'
 
+alias display-fs="~/Projects/display-fs/target/release/display-fs"
+
 cd() {
   builtin cd "$@" && ls
 }

@@ -7,3 +7,4 @@ bind "set show-all-if-ambiguous On"
 . ~/.zsh/git-aliases
 . ~/.zsh/npm-completion
 . ~/.zsh/nvm
+. "$HOME/.cargo/env"
