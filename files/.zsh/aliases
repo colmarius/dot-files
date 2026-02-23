@@ -52,3 +52,14 @@ amp-update() {
   rm -rf /Users/marius/.nvm/versions/node/v22.18.0/lib/node_modules/@sourcegraph/amp
   npm install -g @sourcegraph/amp
 }
+
+amp() {
+  for arg in "$@"; do
+    if [[ "$arg" == '--mode' || "$arg" == '-m' || "$arg" == --mode=* ]]; then
+      command amp "$@"
+      return
+    fi
+  done
+
+  command amp --mode deep "$@"
+}
