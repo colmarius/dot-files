@@ -11,6 +11,14 @@ Before reusing this configuration please change:
 
     bash <(curl -fsS https://raw.githubusercontent.com/colmarius/dot-files/main/clone_and_link.sh)
 
+Lint shell files locally:
+
+    bash scripts/lint-shell.sh
+
+Run a broader advisory lint (includes `files/.zsh/*` and does not fail by default):
+
+    bash scripts/lint-shell-all.sh
+
 Optionally, follow steps in [SETUP.md](https://github.com/colmarius/dot-files/blob/main/SETUP.md)
 
 ## Credits

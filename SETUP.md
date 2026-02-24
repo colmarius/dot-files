@@ -10,6 +10,7 @@ After installing [brew] simply run:
     brew install selecta
     brew install diff-so-fancy
     brew install ripgrep
+    brew install shellcheck
     brew install nvm
     brew install pyenv
     brew install chruby
@@ -25,6 +26,7 @@ Terminal tools:
 - [selecta]: a fuzzy text selector for files and anything else you need to select
 - [diff-so-fancy]: good-lookin' diffs
 - [ripgrep]: recursively searches directories for a regex pattern while respecting your gitignore
+- [shellcheck]: static analysis for shell scripts
 - [semgrep]: lightweight static analysis for many languages
 
 Web development
@@ -45,6 +47,7 @@ Cloud severless development
 [selecta]: https://github.com/garybernhardt/selecta
 [diff-so-fancy]: https://github.com/so-fancy/diff-so-fancy
 [ripgrep]: https://github.com/BurntSushi/ripgrep
+[shellcheck]: https://www.shellcheck.net
 [nvm]: https://github.com/nvm-sh/nvm#install--update-script
 [pyenv]: https://github.com/pyenv/pyenv
 [chruby]: https://github.com/postmodern/chruby

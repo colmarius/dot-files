@@ -34,10 +34,8 @@ pushd "$HOME"
   fi
 
   # Process each file/directory
-  ls -1d .dot-files/files/* .dot-files/files/.* 2>/dev/null | while read f; do
-    # Skip special directories
-    [ "$f" == '.dot-files/files/.' ] && continue
-    [ "$f" == '.dot-files/files/..' ] && continue
+  while IFS= read -r -d '' f; do
+    # Skip git internals
     [ "$f" == '.dot-files/files/.git' ] && continue
 
     basename_f=$(basename "$f")
@@ -87,7 +85,7 @@ pushd "$HOME"
         fi
       fi
     fi
-  done
+  done < <(find .dot-files/files -mindepth 1 -maxdepth 1 -print0)
 
   echo_info "Dot-files setup complete!"
 
