@@ -22,13 +22,42 @@
 [ -f ~/.zsh/private-exports ] && . ~/.zsh/private-exports
 
 # Env vars
-if [ $(uname -s) = 'Darwin' ]; then
-  export LANG="en_AU.UTF-8"
+typeset -U path
+typeset -a base_path
+base_path=(
+  "$HOME/.local/bin"
+  "./bin"
+  "$HOME/bin"
+  /usr/local/bin
+  /usr/bin
+  /bin
+  /usr/local/sbin
+  /usr/sbin
+  /sbin
+)
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export LANG='en_AU.UTF-8'
   export EDITOR='code'
-  export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin:${PATH}"
-  export MANPATH="/usr/local/share/man:/usr/X11/man:/usr/share/man"
+
+  path=(
+    $base_path
+    /usr/X11/bin
+    $path
+  )
+
+  typeset -U manpath
+  manpath=(
+    /usr/local/share/man
+    /usr/X11/man
+    /usr/share/man
+    $manpath
+  )
 else
-  export PATH="./bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:${PATH}"
+  path=(
+    $base_path
+    $path
+  )
 fi
 
 # Load sensitive paths
