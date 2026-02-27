@@ -53,6 +53,62 @@ amp-update() {
   npm install -g @sourcegraph/amp
 }
 
+amp-review() {
+  local diff_description
+
+  case "$1" in
+    ""|branch|current|pr)
+      diff_description="main..HEAD"
+      ;;
+    diverged)
+      diff_description="main...HEAD"
+      shift
+      ;;
+    last)
+      diff_description="HEAD~1"
+      shift
+      ;;
+    uncommitted|wip|working)
+      shift
+      command amp review "$@"
+      return
+      ;;
+    help|-h|--help)
+      cat <<'EOF'
+Usage: amp-review [mode|diff_description] [amp review options]
+
+Defaults to reviewing commits on the current branch since main:
+  amp-review
+  amp-review branch
+
+Modes:
+  amp-review diverged     # review commits since branch diverged from main (main...HEAD)
+  amp-review last         # review only the last commit (HEAD~1)
+  amp-review uncommitted  # review working tree changes
+
+Custom diff descriptions:
+  amp-review "HEAD~3"
+  amp-review "git diff HEAD"
+  amp-review "uncommitted changes in files/.zsh"
+
+Pass-through options:
+  amp-review --instructions "focus on shell safety"
+  amp-review diverged --files files/.zsh/aliases
+EOF
+      return
+      ;;
+    -*)
+      diff_description="main..HEAD"
+      ;;
+    *)
+      diff_description="$1"
+      shift
+      ;;
+  esac
+
+  command amp review "$diff_description" "$@"
+}
+
 amp() {
   for arg in "$@"; do
     if [[ "$arg" == '--mode' || "$arg" == '-m' || "$arg" == --mode=* ]]; then
