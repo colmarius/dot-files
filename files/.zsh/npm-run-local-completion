@@ -1,30 +1,31 @@
 # Override npm run completion to read scripts from the nearest package.json.
 
-if (( ! $+functions[_npm_completion_fallback] )) && (( $+functions[_npm_completion] )); then
-  functions -c _npm_completion _npm_completion_fallback
-fi
+if [[ -z "${NPM_RUN_LOCAL_COMPLETION_DISABLE:-}" ]]; then
+  if (( ! $+functions[_npm_completion_fallback] )) && (( $+functions[_npm_completion] )); then
+    functions -c _npm_completion _npm_completion_fallback
+  fi
 
-_npm_run_local_find_package_json() {
-  local dir="$PWD"
+  _npm_run_local_find_package_json() {
+    local dir="$PWD"
 
-  while :; do
-    if [[ -f "$dir/package.json" ]]; then
-      print -r -- "$dir/package.json"
-      return 0
-    fi
+    while :; do
+      if [[ -f "$dir/package.json" ]]; then
+        print -r -- "$dir/package.json"
+        return 0
+      fi
 
-    if [[ "$dir" == "/" ]]; then
-      return 1
-    fi
+      if [[ "$dir" == "/" ]]; then
+        return 1
+      fi
 
-    dir=${dir:h}
-  done
-}
+      dir=${dir:h}
+    done
+  }
 
-_npm_run_local_get_scripts() {
-  local package_json="$1"
+  _npm_run_local_get_scripts() {
+    local package_json="$1"
 
-  node -e '
+    node -e '
 const fs = require("node:fs");
 
 const packageJsonPath = process.argv[1];
@@ -48,106 +49,145 @@ try {
   process.exit(0);
 }
 ' "$package_json"
-}
-
-_npm_run_local_should_complete() {
-  local idx token subcommand="" subcommand_index=0
-
-  for ((idx = 2; idx <= ${#words}; idx++)); do
-    token="${words[idx]}"
-
-    [[ -z "$token" ]] && continue
-
-    if [[ "$token" == "--" ]]; then
-      return 1
-    fi
-
-    if [[ "$token" == -* ]]; then
-      continue
-    fi
-
-    subcommand="$token"
-    subcommand_index=$idx
-    break
-  done
-
-  if [[ "$subcommand" != "run" && "$subcommand" != "run-script" ]]; then
-    return 1
-  fi
-
-  if (( CURRENT <= subcommand_index )); then
-    return 1
-  fi
-
-  for ((idx = subcommand_index + 1; idx < CURRENT; idx++)); do
-    token="${words[idx]}"
-
-    [[ -z "$token" ]] && continue
-
-    if [[ "$token" == "--" ]]; then
-      return 1
-    fi
-
-    if [[ "$token" == -* ]]; then
-      continue
-    fi
-
-    return 1
-  done
-
-  token="${words[CURRENT]}"
-
-  if [[ -n "$token" && ( "$token" == "--" || "$token" == -* ) ]]; then
-    return 1
-  fi
-
-  return 0
-}
-
-_npm_completion() {
-  if ! (( $+functions[_npm_completion_fallback] )); then
-    return 1
-  fi
-
-  if ! _npm_run_local_should_complete; then
-    _npm_completion_fallback "$@"
-    return $?
-  fi
-
-  if ! command -v node >/dev/null 2>&1; then
-    _npm_completion_fallback "$@"
-    return $?
-  fi
-
-  local package_json
-  package_json="$(_npm_run_local_find_package_json)" || {
-    _npm_completion_fallback "$@"
-    return $?
   }
 
-  local -a script_names script_displays
-  local script_name script_command script_display
+  _npm_run_local_option_consumes_next_arg() {
+    local token="$1"
 
-  while IFS=$'\t' read -r script_name script_command; do
-    [[ -z "$script_name" ]] && continue
+    case "$token" in
+      --*=*|-w?*|-C?*)
+        return 1
+        ;;
+      --workspace|--prefix|-w|-C|--cache|--userconfig|--globalconfig|--registry|--loglevel|--otp|--scope|--before|--tag|--script-shell)
+        return 0
+        ;;
+    esac
 
-    script_display="$script_name"
-    if [[ -n "$script_command" ]]; then
-      script_display+=" -- $script_command"
+    return 1
+  }
+
+  _npm_run_local_should_complete() {
+    local idx token subcommand="" subcommand_index=0 expecting_option_value=0
+
+    for ((idx = 2; idx <= ${#words}; idx++)); do
+      token="${words[idx]}"
+
+      [[ -z "$token" ]] && continue
+
+      if (( expecting_option_value )); then
+        expecting_option_value=0
+        continue
+      fi
+
+      if [[ "$token" == "--" ]]; then
+        return 1
+      fi
+
+      if [[ "$token" == -* ]]; then
+        if _npm_run_local_option_consumes_next_arg "$token"; then
+          expecting_option_value=1
+        fi
+
+        continue
+      fi
+
+      subcommand="$token"
+      subcommand_index=$idx
+      break
+    done
+
+    if [[ "$subcommand" != "run" && "$subcommand" != "run-script" ]]; then
+      return 1
     fi
 
-    script_names+=("$script_name")
-    script_displays+=("$script_display")
-  done < <(_npm_run_local_get_scripts "$package_json")
+    if (( CURRENT <= subcommand_index )); then
+      return 1
+    fi
 
-  if (( ${#script_names[@]} == 0 )); then
+    expecting_option_value=0
+    for ((idx = subcommand_index + 1; idx < CURRENT; idx++)); do
+      token="${words[idx]}"
+
+      [[ -z "$token" ]] && continue
+
+      if (( expecting_option_value )); then
+        expecting_option_value=0
+        continue
+      fi
+
+      if [[ "$token" == "--" ]]; then
+        return 1
+      fi
+
+      if [[ "$token" == -* ]]; then
+        if _npm_run_local_option_consumes_next_arg "$token"; then
+          expecting_option_value=1
+        fi
+
+        continue
+      fi
+
+      return 1
+    done
+
+    token="${words[CURRENT]}"
+
+    if (( expecting_option_value )); then
+      return 1
+    fi
+
+    if [[ -n "$token" && ( "$token" == "--" || "$token" == -* ) ]]; then
+      return 1
+    fi
+
     return 0
+  }
+
+  _npm_completion() {
+    if ! (( $+functions[_npm_completion_fallback] )); then
+      return 1
+    fi
+
+    if ! _npm_run_local_should_complete; then
+      _npm_completion_fallback "$@"
+      return $?
+    fi
+
+    if ! command -v node >/dev/null 2>&1; then
+      _npm_completion_fallback "$@"
+      return $?
+    fi
+
+    local package_json
+    package_json="$(_npm_run_local_find_package_json)" || {
+      _npm_completion_fallback "$@"
+      return $?
+    }
+
+    local -a script_names script_displays
+    local script_name script_command script_display
+
+    while IFS=$'\t' read -r script_name script_command; do
+      [[ -z "$script_name" ]] && continue
+
+      script_display="$script_name"
+      if [[ -n "$script_command" ]]; then
+        script_display+=" -- $script_command"
+      fi
+
+      script_names+=("$script_name")
+      script_displays+=("$script_display")
+    done < <(_npm_run_local_get_scripts "$package_json")
+
+    if (( ${#script_names[@]} == 0 )); then
+      return 0
+    fi
+
+    compadd -Q -d script_displays -- "${script_names[@]}"
+    return 0
+  }
+
+  if type compdef >/dev/null 2>&1; then
+    compdef _npm_completion npm
   fi
-
-  compadd -Q -d script_displays -- "${script_names[@]}"
-  return 0
-}
-
-if type compdef >/dev/null 2>&1; then
-  compdef _npm_completion npm
 fi

@@ -25,6 +25,7 @@ shell_files=(
   "files/.zsh/google-cloud"
   "files/.zsh/java"
   "files/.zsh/npm-completion"
+  "files/.zsh/npm-run-local-completion"
   "files/.zsh/nvm"
   "files/.zsh/nvm-autoload"
   "files/.zsh/options"

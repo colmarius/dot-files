@@ -19,6 +19,14 @@ Run a broader advisory lint (includes `files/.zsh/*` and does not fail by defaul
 
     bash scripts/lint-shell-all.sh
 
+Run npm run completion regression checks:
+
+    bash scripts/test-npm-run-local-completion.sh
+
+Temporarily disable the local `npm run` completion override:
+
+    export NPM_RUN_LOCAL_COMPLETION_DISABLE=1
+
 Optionally, follow steps in [SETUP.md](https://github.com/colmarius/dot-files/blob/main/SETUP.md)
 
 ## Credits
