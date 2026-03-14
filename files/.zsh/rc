@@ -11,6 +11,7 @@
 . ~/.zsh/ruby
 . ~/.zsh/python
 . ~/.zsh/npm-completion
+. ~/.zsh/npm-run-local-completion
 . ~/.zsh/nvm
 . ~/.zsh/nvm-autoload
 . ~/.zsh/ssh
