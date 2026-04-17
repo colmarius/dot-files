@@ -4,8 +4,8 @@ My _dot files_ configuration. After using a forked version for a while I decided
 
 Before reusing this configuration please change:
 
-- [files/.gitconfig](https://github.com/colmarius/dot-files/blob/main/files/.gitconfig)
-- [clone_and_link.sh](https://github.com/colmarius/dot-files/blob/main/clone_and_link.sh#L10)
+- [files/.gitconfig](files/.gitconfig)
+- [clone_and_link.sh](clone_and_link.sh)
 
 ## Usage
 
@@ -23,13 +23,15 @@ Run npm run completion regression checks:
 
     bash scripts/test-npm-run-local-completion.sh
 
-Pi OpenAI key setup lives in [SETUP.md](https://github.com/colmarius/dot-files/blob/main/SETUP.md).
+Pi OpenAI key setup lives in [SETUP.md](SETUP.md).
+
+Pi global settings are tracked in [files/.pi/agent/settings.json](files/.pi/agent/settings.json) and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without taking over the rest of `~/.pi`.
 
 Temporarily disable the local `npm run` completion override:
 
     export NPM_RUN_LOCAL_COMPLETION_DISABLE=1
 
-Optionally, follow steps in [SETUP.md](https://github.com/colmarius/dot-files/blob/main/SETUP.md)
+Optionally, follow steps in [SETUP.md](SETUP.md)
 
 ## Credits
 

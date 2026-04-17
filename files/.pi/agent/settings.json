@@ -1,0 +1,15 @@
+{
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "medium",
+  "enabledModels": [
+    "openai/gpt-5.4:high",
+    "openai/gpt-5.3-codex:xhigh"
+  ],
+  "thinkingBudgets": {
+    "minimal": 1024,
+    "low": 4096,
+    "medium": 10240,
+    "high": 32768
+  }
+}

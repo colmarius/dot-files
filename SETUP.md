@@ -55,6 +55,8 @@ Pi setup
 
       bash scripts/setup-pi-openai-key.sh unset
 
+- Global Pi settings are managed in `files/.pi/agent/settings.json` and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without replacing the rest of `~/.pi`.
+
 [ghostty]: https://ghostty.org/download
 [brew]: https://brew.sh
 [direnv]: https://direnv.net

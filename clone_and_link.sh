@@ -20,6 +20,46 @@ echo_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+link_or_copy_nested_file() {
+    local relative_path="$1"
+    local src="$HOME/.dot-files/files/$relative_path"
+    local dest="$HOME/$relative_path"
+    local dest_dir
+
+    if [ ! -e "$src" ]; then
+      return 0
+    fi
+
+    dest_dir=$(dirname "$dest")
+
+    echo_info "Processing nested file: $relative_path"
+    mkdir -p "$dest_dir"
+
+    if ln -vsf "$src" "$dest" 2>/dev/null; then
+      echo_info "✓ Created symlink for nested file: $relative_path"
+      return 0
+    fi
+
+    echo_warn "Symlink failed for nested file: $relative_path"
+    echo_info "Attempting to copy nested file instead..."
+
+    if [ -d "$dest" ]; then
+      echo_error "Refusing to replace directory with file: $dest"
+      return 1
+    fi
+
+    if [ -f "$dest" ] || [ -L "$dest" ]; then
+      rm -f "$dest"
+    fi
+
+    if cp "$src" "$dest"; then
+      echo_info "✓ Copied nested file: $relative_path"
+    else
+      echo_error "Failed to copy nested file: $relative_path"
+      return 1
+    fi
+}
+
 pushd "$HOME"
 
   # Clone or update dot-files
@@ -86,6 +126,8 @@ pushd "$HOME"
       fi
     fi
   done < <(find .dot-files/files -mindepth 1 -maxdepth 1 -print0)
+
+  link_or_copy_nested_file ".pi/agent/settings.json"
 
   echo_info "Dot-files setup complete!"
 
