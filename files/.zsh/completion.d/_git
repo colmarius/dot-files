@@ -1204,7 +1204,7 @@ _git-rebase () {
     '(-i --interactive)--whitespace=-[detect a new or modified line that has whitespace errors]: :__git_apply_whitespace_strategies' \
     '(-i --interactive)--committer-date-is-author-date[use author date as committer date]' \
     '(-i --interactive --ignore-whitespace --whitespace --committer-date-is-author-date)'{-i,--interactive}'[make a list of commits to be rebased and open in $EDITOR]' \
-    '(-p --preserve-merges --interactive)'{-p,--preserve-merges}'[try to recreate merges instead of ignoring them]' \
+    '(-r --rebase-merges --interactive)'{-r,--rebase-merges}'[try to rebase merges instead of skipping them]' \
     '(1)--root[rebase all reachable commits]' \
     $autosquash_opts \
     '--no-ff[cherry-pick all rebased commits with --interactive, otherwise synonymous to --force-rebase]' \
