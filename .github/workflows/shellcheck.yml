@@ -11,8 +11,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install ShellCheck
-        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Shell Tooling
+        run: sudo apt-get update && sudo apt-get install -y shellcheck zsh
 
       - name: Run ShellCheck
         run: bash scripts/lint-shell.sh
+
+      - name: Run Shell Regressions
+        run: bash scripts/test-shell-regressions.sh

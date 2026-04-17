@@ -20,10 +20,47 @@ echo_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-link_or_copy_nested_file() {
-    local relative_path="$1"
-    local src="$HOME/.dot-files/files/$relative_path"
-    local dest="$HOME/$relative_path"
+is_legacy_pi_repo_symlink() {
+    local pi_dir="$HOME/.pi"
+    local repo_pi_dir="$HOME/.dot-files/files/.pi"
+    local link_target
+
+    if [ ! -L "$pi_dir" ]; then
+      return 1
+    fi
+
+    link_target=$(readlink "$pi_dir")
+    [ "$link_target" = ".dot-files/files/.pi" ] || [ "$link_target" = "$repo_pi_dir" ]
+}
+
+repair_pi_directory_if_needed() {
+    local pi_dir="$HOME/.pi"
+    local repo_pi_dir="$HOME/.dot-files/files/.pi"
+    local temp_pi_dir
+
+    if ! is_legacy_pi_repo_symlink; then
+      return 0
+    fi
+
+    echo_warn "Detected legacy ~/.pi symlink to dot-files; converting it back to a real directory"
+
+    temp_pi_dir=$(mktemp -d "${TMPDIR:-/tmp}/dotfiles-pi.XXXXXX")
+    cp -R "$pi_dir/." "$temp_pi_dir/"
+
+    rm -f "$pi_dir"
+    mkdir -p "$pi_dir"
+    cp -R "$temp_pi_dir/." "$pi_dir/"
+    rm -rf "$temp_pi_dir"
+
+    if [ -f "$repo_pi_dir/agent/auth.json" ] && [ -f "$pi_dir/agent/auth.json" ]; then
+      rm -f "$repo_pi_dir/agent/auth.json"
+      echo_info "✓ Moved Pi auth.json out of the dot-files checkout"
+    fi
+}
+
+install_pi_settings_file() {
+    local src="$HOME/.dot-files/files/.pi/agent/settings.json"
+    local dest="$HOME/.pi/agent/settings.json"
     local dest_dir
 
     if [ ! -e "$src" ]; then
@@ -32,16 +69,16 @@ link_or_copy_nested_file() {
 
     dest_dir=$(dirname "$dest")
 
-    echo_info "Processing nested file: $relative_path"
+    echo_info "Processing Pi settings file"
     mkdir -p "$dest_dir"
 
     if ln -vsf "$src" "$dest" 2>/dev/null; then
-      echo_info "✓ Created symlink for nested file: $relative_path"
+      echo_info "✓ Created Pi settings symlink"
       return 0
     fi
 
-    echo_warn "Symlink failed for nested file: $relative_path"
-    echo_info "Attempting to copy nested file instead..."
+    echo_warn "Symlink failed for Pi settings file"
+    echo_info "Attempting to copy Pi settings file instead..."
 
     if [ -d "$dest" ]; then
       echo_error "Refusing to replace directory with file: $dest"
@@ -53,9 +90,9 @@ link_or_copy_nested_file() {
     fi
 
     if cp "$src" "$dest"; then
-      echo_info "✓ Copied nested file: $relative_path"
+      echo_info "✓ Copied Pi settings file"
     else
-      echo_error "Failed to copy nested file: $relative_path"
+      echo_error "Failed to copy Pi settings file"
       return 1
     fi
 }
@@ -79,6 +116,11 @@ pushd "$HOME"
     [ "$f" == '.dot-files/files/.git' ] && continue
 
     basename_f=$(basename "$f")
+
+    if [ "$basename_f" = ".pi" ]; then
+      echo_info "Skipping top-level .pi entry; Pi settings are managed separately"
+      continue
+    fi
 
     if [ -d "$f" ]; then
       echo_info "Processing directory: $basename_f"
@@ -127,7 +169,8 @@ pushd "$HOME"
     fi
   done < <(find .dot-files/files -mindepth 1 -maxdepth 1 -print0)
 
-  link_or_copy_nested_file ".pi/agent/settings.json"
+  repair_pi_directory_if_needed
+  install_pi_settings_file
 
   echo_info "Dot-files setup complete!"
 

@@ -35,6 +35,10 @@ shell_files=(
   "files/.zsh/ruby"
   "files/.zsh/ssh"
   "scripts/setup-pi-openai-key.sh"
+  "scripts/test-clone-and-link-pi.sh"
+  "scripts/test-npm-run-local-completion.sh"
+  "scripts/test-shell-regressions.sh"
+  "scripts/test-setup-pi-openai-key.sh"
 )
 
 existing_files=()

@@ -55,6 +55,7 @@ if ! command -v node >/dev/null 2>&1; then
 fi
 
 keychain_service="pi-openai-api-key"
+pi_dir="$HOME/.pi"
 auth_dir="$HOME/.pi/agent"
 auth_file="$auth_dir/auth.json"
 tmp_file="$(mktemp)"
@@ -66,37 +67,20 @@ cleanup() {
 
 trap cleanup EXIT
 
-if [ "$action" = "set" ]; then
-  if [ ! -t 0 ] || [ ! -t 2 ]; then
-    if ! read -r api_key; then
-      echo "No API key received on stdin." >&2
-      exit 1
-    fi
-  else
-    printf 'OpenAI API key: ' >&2
-    stty -echo
-    read -r api_key
-    stty echo
-    printf '\n' >&2
-  fi
+is_legacy_pi_repo_symlink() {
+  local repo_pi_dir="$HOME/.dot-files/files/.pi"
+  local link_target
 
-  if [ -z "$api_key" ]; then
-    echo "OpenAI API key cannot be empty." >&2
-    exit 1
-  fi
+  [ -L "$pi_dir" ] || return 1
 
-  mkdir -p "$auth_dir"
-  chmod 700 "$HOME/.pi" "$auth_dir"
+  link_target=$(readlink "$pi_dir")
+  [ "$link_target" = ".dot-files/files/.pi" ] || [ "$link_target" = "$repo_pi_dir" ]
+}
 
-  security add-generic-password \
-    -a "$USER" \
-    -s "$keychain_service" \
-    -w "$api_key" \
-    -U >/dev/null
-else
-  security delete-generic-password \
-    -a "$USER" \
-    -s "$keychain_service" >/dev/null 2>&1 || true
+if is_legacy_pi_repo_symlink; then
+  echo "Detected legacy ~/.pi symlink into ~/.dot-files/files/.pi." >&2
+  echo "Run clone_and_link.sh once to repair it before configuring Pi auth." >&2
+  exit 1
 fi
 
 ACTION="$action" AUTH_FILE="$auth_file" USER_NAME="$USER" KEYCHAIN_SERVICE="$keychain_service" node <<'EOF' > "$tmp_file"
@@ -127,7 +111,37 @@ if (Object.keys(auth).length > 0) {
 }
 EOF
 
+if [ "$action" = "set" ]; then
+  if [ -t 0 ]; then
+    printf 'OpenAI API key: ' >&2
+    stty -echo
+    read -r api_key
+    stty echo
+    printf '\n' >&2
+  elif ! read -r api_key; then
+    echo "No API key received on stdin." >&2
+    exit 1
+  fi
+
+  if [ -z "$api_key" ]; then
+    echo "OpenAI API key cannot be empty." >&2
+    exit 1
+  fi
+
+  security add-generic-password \
+    -a "$USER" \
+    -s "$keychain_service" \
+    -w "$api_key" \
+    -U >/dev/null
+else
+  security delete-generic-password \
+    -a "$USER" \
+    -s "$keychain_service" >/dev/null 2>&1 || true
+fi
+
 if [ -s "$tmp_file" ]; then
+  mkdir -p "$auth_dir"
+  chmod 700 "$pi_dir" "$auth_dir"
   mv "$tmp_file" "$auth_file"
   chmod 600 "$auth_file"
 else

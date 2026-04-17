@@ -19,13 +19,13 @@ Run a broader advisory lint (includes `files/.zsh/*` and does not fail by defaul
 
     bash scripts/lint-shell-all.sh
 
-Run npm run completion regression checks:
+Run optional shell regression checks:
 
-    bash scripts/test-npm-run-local-completion.sh
+    bash scripts/test-shell-regressions.sh
 
-Pi OpenAI key setup lives in [SETUP.md](SETUP.md).
+Pi OpenAI key setup lives in [SETUP.md](SETUP.md). Run `clone_and_link.sh` once before `bash scripts/setup-pi-openai-key.sh set` so Pi settings are installed and any legacy `~/.pi` repo symlink is repaired first.
 
-Pi global settings are tracked in [files/.pi/agent/settings.json](files/.pi/agent/settings.json) and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without taking over the rest of `~/.pi`.
+Pi global settings are tracked in [files/.pi/agent/settings.json](files/.pi/agent/settings.json) and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without taking over the rest of `~/.pi` or replacing `~/.pi/agent/auth.json`.
 
 Temporarily disable the local `npm run` completion override:
 

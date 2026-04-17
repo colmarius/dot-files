@@ -47,15 +47,23 @@ Pi setup
 
       npm install -g @mariozechner/pi-coding-agent
 
-- Store the OpenAI API key in macOS Keychain and configure Pi auth:
+- After running `clone_and_link.sh` once, store the OpenAI API key in macOS Keychain and configure Pi auth:
 
       bash scripts/setup-pi-openai-key.sh set
+
+  The script only manages the `openai` entry in `~/.pi/agent/auth.json` and preserves any other provider entries already stored there.
 
   Remove the stored Pi OpenAI key and auth entry:
 
       bash scripts/setup-pi-openai-key.sh unset
 
-- Global Pi settings are managed in `files/.pi/agent/settings.json` and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without replacing the rest of `~/.pi`.
+- Global Pi settings are managed in `files/.pi/agent/settings.json` and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without replacing the rest of `~/.pi` or overwriting `~/.pi/agent/auth.json`.
+
+- If a previous broken `clone_and_link.sh` run removed `~/.pi/agent/auth.json`, recreate it with:
+
+      bash scripts/setup-pi-openai-key.sh set
+
+  If the script reports a legacy `~/.pi` symlink, run `bash clone_and_link.sh` first so it can repair `~/.pi` before writing Pi auth.
 
 [ghostty]: https://ghostty.org/download
 [brew]: https://brew.sh
