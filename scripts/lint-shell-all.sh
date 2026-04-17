@@ -34,6 +34,7 @@ shell_files=(
   "files/.zsh/rc"
   "files/.zsh/ruby"
   "files/.zsh/ssh"
+  "scripts/setup-pi-openai-key.sh"
 )
 
 existing_files=()

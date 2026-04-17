@@ -23,6 +23,8 @@ Run npm run completion regression checks:
 
     bash scripts/test-npm-run-local-completion.sh
 
+Pi OpenAI key setup lives in [SETUP.md](https://github.com/colmarius/dot-files/blob/main/SETUP.md).
+
 Temporarily disable the local `npm run` completion override:
 
     export NPM_RUN_LOCAL_COMPLETION_DISABLE=1

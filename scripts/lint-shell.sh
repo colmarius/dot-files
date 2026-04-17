@@ -16,6 +16,7 @@ shell_files=(
   "files/.bashrc"
   "files/.zprofile"
   "files/.zshrc"
+  "scripts/setup-pi-openai-key.sh"
 )
 
 existing_files=()

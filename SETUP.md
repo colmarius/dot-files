@@ -41,6 +41,20 @@ Cloud severless development
 - [gcloud]: Cloud SDK
 - [firebase-tools]: Firebase Tools
 
+Pi setup
+
+- Install the Pi coding agent:
+
+      npm install -g @mariozechner/pi-coding-agent
+
+- Store the OpenAI API key in macOS Keychain and configure Pi auth:
+
+      bash scripts/setup-pi-openai-key.sh set
+
+  Remove the stored Pi OpenAI key and auth entry:
+
+      bash scripts/setup-pi-openai-key.sh unset
+
 [ghostty]: https://ghostty.org/download
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
