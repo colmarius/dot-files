@@ -110,6 +110,8 @@ EOF
 }
 
 amp() {
+  local -x PLUGINS=all
+
   for arg in "$@"; do
     if [[ "$arg" == '--mode' || "$arg" == '-m' || "$arg" == --mode=* ]]; then
       command amp "$@"
