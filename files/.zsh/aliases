@@ -114,5 +114,5 @@ amp() {
     fi
   done
 
-  command amp --mode deep "$@"
+  command amp --mode high "$@"
 }
