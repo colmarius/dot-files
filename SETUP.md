@@ -41,6 +41,11 @@ Cloud severless development
 - [gcloud]: Cloud SDK
 - [firebase-tools]: Firebase Tools
 
+Agent workflow
+
+- The checked-in [dot-agents] workflow requires standard `bash`, `curl`, and `tar` tools.
+- Refresh it from the repository root with `.agents/scripts/sync.sh --force`.
+
 Pi setup
 
 - Install the Pi coding agent:
@@ -79,3 +84,4 @@ Pi setup
 [firebase-tools]: https://firebase.google.com/docs/cli#mac-linux-npm
 [semgrep]: https://github.com/semgrep/semgrep
 [biome]: https://biomejs.dev/guides/manual-installation
+[dot-agents]: https://dot-agents.dev/

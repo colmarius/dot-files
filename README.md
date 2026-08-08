@@ -23,6 +23,18 @@ Run optional shell regression checks:
 
     bash scripts/test-shell-regressions.sh
 
+## Agent workflow
+
+This repository tracks the current [dot-agents](https://dot-agents.dev/) workflow from `main` under `.agents/`. Small, self-contained work can stay conversational; durable work follows [.agents/work/AGENTS.md](.agents/work/AGENTS.md).
+
+Preview upstream workflow changes:
+
+    .agents/scripts/sync.sh --diff
+
+Refresh managed workflow files, keeping upstream as the source of truth while preserving project guidance and user work:
+
+    .agents/scripts/sync.sh --force
+
 Pi OpenAI key setup lives in [SETUP.md](SETUP.md). Run `clone_and_link.sh` once before `bash scripts/setup-pi-openai-key.sh set` so Pi settings are installed and any legacy `~/.pi` repo symlink is repaired first.
 
 Pi global settings are tracked in [files/.pi/agent/settings.json](files/.pi/agent/settings.json) and linked to `~/.pi/agent/settings.json` by `clone_and_link.sh` without taking over the rest of `~/.pi` or replacing `~/.pi/agent/auth.json`.
