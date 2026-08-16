@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e  # Exit on any error
+set -e
 
 # Colors for output
 RED='\033[0;31m'
@@ -18,6 +18,64 @@ echo_warn() {
 
 echo_error() {
     echo -e "${RED}[ERROR]${NC} $1"
+}
+
+backup_root=""
+
+backup_existing_entry() {
+    local dest="$1"
+    local relative_dest="${dest#"$HOME"/}"
+
+    if [ -z "$backup_root" ]; then
+      backup_root="$HOME/.dot-files-backup/$(date +%Y%m%d-%H%M%S)-$$"
+      mkdir -p "$backup_root"
+      echo_warn "Existing managed entries will be backed up under $backup_root"
+    fi
+
+    mkdir -p "$backup_root/$(dirname "$relative_dest")"
+    mv "$dest" "$backup_root/$relative_dest"
+    echo_info "✓ Backed up existing $relative_dest"
+}
+
+install_entry() {
+    local src="$1"
+    local dest="$2"
+    local child
+
+    if [ -L "$dest" ] && [ "$dest" -ef "$src" ]; then
+      echo_info "✓ Already linked: ${dest#"$HOME"/}"
+      return 0
+    fi
+
+    if [ -d "$src" ] && [ ! -L "$src" ] && [ -d "$dest" ] && [ ! -L "$dest" ]; then
+      echo_info "Merging managed entries into existing directory: ${dest#"$HOME"/}"
+
+      while IFS= read -r -d '' child; do
+        install_entry "$child" "$dest/$(basename "$child")"
+      done < <(find "$src" -mindepth 1 -maxdepth 1 -print0)
+
+      return 0
+    fi
+
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+      backup_existing_entry "$dest"
+    fi
+
+    mkdir -p "$(dirname "$dest")"
+
+    if ln -vs "$src" "$dest" 2>/dev/null; then
+      echo_info "✓ Created symlink: ${dest#"$HOME"/}"
+      return 0
+    fi
+
+    echo_warn "Symlink failed for ${dest#"$HOME"/}; copying it instead"
+
+    if cp -R "$src" "$dest"; then
+      echo_info "✓ Copied: ${dest#"$HOME"/}"
+    else
+      echo_error "Failed to install: ${dest#"$HOME"/}"
+      return 1
+    fi
 }
 
 is_legacy_pi_repo_symlink() {
@@ -61,60 +119,34 @@ repair_pi_directory_if_needed() {
 install_pi_settings_file() {
     local src="$HOME/.dot-files/files/.pi/agent/settings.json"
     local dest="$HOME/.pi/agent/settings.json"
-    local dest_dir
 
     if [ ! -e "$src" ]; then
       return 0
     fi
 
-    dest_dir=$(dirname "$dest")
-
     echo_info "Processing Pi settings file"
-    mkdir -p "$dest_dir"
-
-    if ln -vsfn "$src" "$dest" 2>/dev/null; then
-      echo_info "✓ Created Pi settings symlink"
-      return 0
-    fi
-
-    echo_warn "Symlink failed for Pi settings file"
-    echo_info "Attempting to copy Pi settings file instead..."
-
-    if [ -d "$dest" ]; then
-      echo_error "Refusing to replace directory with file: $dest"
-      return 1
-    fi
-
-    if [ -f "$dest" ] || [ -L "$dest" ]; then
-      rm -f "$dest"
-    fi
-
-    if cp "$src" "$dest"; then
-      echo_info "✓ Copied Pi settings file"
-    else
-      echo_error "Failed to copy Pi settings file"
-      return 1
-    fi
+    install_entry "$src" "$dest"
 }
 
-pushd "$HOME"
+cd "$HOME"
 
-  # Clone or update dot-files
-  if [ -d ".dot-files" ]; then
-    echo_info "Updating existing dot-files repository..."
-    pushd ".dot-files"
-      git pull --rebase
-    popd
+  # Clone or update dot-files.
+  if [ -e ".dot-files" ] || [ -L ".dot-files" ]; then
+    if git -C ".dot-files" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+      echo_info "Updating existing dot-files repository..."
+      git -C ".dot-files" pull --rebase
+    else
+      echo_error "$HOME/.dot-files exists but is not a Git repository; refusing to replace it"
+      exit 1
+    fi
   else
     echo_info "Cloning dot-files repository..."
-    git clone "git@github.com:colmarius/dot-files.git" ".dot-files"
+    git clone "https://github.com/colmarius/dot-files.git" ".dot-files"
   fi
 
-  # Process each file/directory
+  # Process each top-level entry. Existing real directories are merged so
+  # unrelated files such as private shell aliases are preserved.
   while IFS= read -r -d '' f; do
-    # Skip git internals
-    [ "$f" == '.dot-files/files/.git' ] && continue
-
     basename_f=$(basename "$f")
 
     if [ "$basename_f" = ".pi" ]; then
@@ -122,60 +154,11 @@ pushd "$HOME"
       continue
     fi
 
-    if [ -d "$f" ]; then
-      echo_info "Processing directory: $basename_f"
-
-      # Try to create symlink for directory.
-      # -n (no-dereference) keeps re-runs idempotent: without it, BSD/macOS ln
-      # follows an existing symlink-to-directory destination and creates a
-      # nested self-referential link inside the repo checkout instead.
-      if ln -vsfn "$f" . 2>/dev/null; then
-        echo_info "✓ Created symlink for directory: $basename_f"
-      else
-        echo_warn "Symlink failed for directory: $basename_f"
-        echo_info "Attempting to copy directory instead..."
-
-        # Remove existing directory if it exists
-        if [ -d "$basename_f" ]; then
-          rm -rf "$basename_f"
-        fi
-
-        # Copy the directory
-        if cp -r "$f" .; then
-          echo_info "✓ Copied directory: $basename_f"
-        else
-          echo_error "Failed to copy directory: $basename_f"
-        fi
-      fi
-    else
-      echo_info "Processing file: $basename_f"
-
-      # For files, always try symlink first (-n guards against an existing
-      # symlink-to-directory destination being followed on BSD/macOS ln)
-      if ln -vsfn "$f" . 2>/dev/null; then
-        echo_info "✓ Created symlink for file: $basename_f"
-      else
-        echo_warn "Symlink failed for file: $basename_f"
-        echo_info "Attempting to copy file instead..."
-
-        # Remove existing file if it exists
-        if [ -f "$basename_f" ]; then
-          rm -f "$basename_f"
-        fi
-
-        # Copy the file
-        if cp "$f" .; then
-          echo_info "✓ Copied file: $basename_f"
-        else
-          echo_error "Failed to copy file: $basename_f"
-        fi
-      fi
-    fi
-  done < <(find .dot-files/files -mindepth 1 -maxdepth 1 -print0)
+    echo_info "Processing: $basename_f"
+    install_entry "$f" "$HOME/$basename_f"
+  done < <(find "$HOME/.dot-files/files" -mindepth 1 -maxdepth 1 -print0)
 
   repair_pi_directory_if_needed
   install_pi_settings_file
 
   echo_info "Dot-files setup complete!"
-
-popd

@@ -1,6 +1,6 @@
 ## Setup new tools
 
-Recommend to use [iterm2] as Mac terminal.
+Recommend using [Ghostty] as the terminal on macOS.
 
 Libraries needed to install when setting up on a new computer:
 
@@ -15,9 +15,15 @@ After installing [brew] simply run:
     brew install pyenv
     brew install chruby
     brew install ruby-install
+    brew install openjdk@25
 
-    ruby-install # see version
-    pyenv install # see version
+Install the versions pinned by this checkout:
+
+    mkdir -p "$HOME/.nvm"
+    . "$(brew --prefix nvm)/nvm.sh"
+    nvm install "$(cat files/.nvmrc)"
+    ruby-install ruby "$(cat files/.ruby-version)"
+    pyenv install "$(cat files/.python-version)"
 
 Terminal tools:
 
@@ -36,7 +42,7 @@ Web development
 - [chruby]: Ruby Version Manager
 - [biome]: Biome is a fast formatter for JavaScript, TypeScript, JSX, TSX
 
-Cloud severless development
+Cloud serverless development
 
 - [gcloud]: Cloud SDK
 - [firebase-tools]: Firebase Tools
@@ -70,7 +76,7 @@ Pi setup
 
   If the script reports a legacy `~/.pi` symlink, run `bash clone_and_link.sh` first so it can repair `~/.pi` before writing Pi auth.
 
-[ghostty]: https://ghostty.org/download
+[Ghostty]: https://ghostty.org/download
 [brew]: https://brew.sh
 [direnv]: https://direnv.net
 [selecta]: https://github.com/garybernhardt/selecta

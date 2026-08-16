@@ -1,2 +1,14 @@
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  #
+
+for nvm_script in \
+  "$NVM_DIR/nvm.sh" \
+  /opt/homebrew/opt/nvm/nvm.sh \
+  /usr/local/opt/nvm/nvm.sh \
+  /home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh; do
+  if [ -s "$nvm_script" ]; then
+    . "$nvm_script"
+    break
+  fi
+done
+
+unset nvm_script

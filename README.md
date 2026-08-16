@@ -11,6 +11,8 @@ Before reusing this configuration please change:
 
     bash <(curl -fsS https://raw.githubusercontent.com/colmarius/dot-files/main/clone_and_link.sh)
 
+The installer uses HTTPS for the initial clone, preserves unrelated files in existing directories such as `~/.config` and `~/.zsh`, and backs up conflicting managed entries under `~/.dot-files-backup/` before replacing them with links.
+
 Lint shell files locally:
 
     bash scripts/lint-shell.sh

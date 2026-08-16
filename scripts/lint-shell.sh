@@ -11,6 +11,7 @@ if ! command -v shellcheck >/dev/null 2>&1; then
 fi
 
 shell_files=(
+  ".agents/setup"
   "clone_and_link.sh"
   "files/.bash_profile"
   "files/.bashrc"

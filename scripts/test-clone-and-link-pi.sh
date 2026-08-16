@@ -35,6 +35,15 @@ assert_not_symlink() {
   fi
 }
 
+assert_symlink() {
+  local path="$1"
+  local message="$2"
+
+  if [ ! -L "$path" ]; then
+    fail "$message"
+  fi
+}
+
 assert_same_content() {
   local left="$1"
   local right="$2"
@@ -54,6 +63,8 @@ setup_dotfiles_repo() {
 
   (
     cd "$home_dir/.dot-files" || exit 1
+    export GIT_CONFIG_GLOBAL=/dev/null
+    export GIT_CONFIG_SYSTEM=/dev/null
     git init -q
     git config user.name "Test User"
     git config user.email "test@example.com"
@@ -135,8 +146,77 @@ run_repairs_legacy_pi_symlink_test() {
   fi
 }
 
+run_preserves_existing_directories_and_backs_up_conflicts_test() {
+  local case_dir="$tmp_dir/preserves-existing-directories"
+  local home_dir="$case_dir/home"
+  local custom_config="$home_dir/.config/custom/user.txt"
+  local private_aliases="$home_dir/.zsh/private-aliases"
+  local backup_vimrc
+  local backup_count_before
+  local backup_count_after
+
+  setup_dotfiles_repo "$home_dir" "$case_dir/origin.git"
+
+  mkdir -p "$(dirname "$custom_config")" "$(dirname "$private_aliases")"
+  printf 'keep custom config\n' > "$custom_config"
+  printf "alias private-marker='printf private'\n" > "$private_aliases"
+  printf 'old vim config\n' > "$home_dir/.vimrc"
+
+  HOME="$home_dir" bash "$script_under_test" >/dev/null
+
+  assert_file_exists "$custom_config" "unmanaged files in an existing .config directory should be preserved"
+  assert_file_exists "$private_aliases" "private aliases in an existing .zsh directory should be preserved"
+  assert_symlink "$home_dir/.config/ghostty" "managed config directories should be linked into an existing .config directory"
+  assert_symlink "$home_dir/.zsh/aliases" "managed zsh files should be linked into an existing .zsh directory"
+  assert_symlink "$home_dir/.vimrc" "a conflicting managed file should be replaced with a link"
+
+  backup_vimrc=$(find "$home_dir/.dot-files-backup" -type f -path '*/.vimrc' -print -quit)
+  assert_file_exists "$backup_vimrc" "a conflicting managed file should be backed up"
+
+  if [ "$(cat "$custom_config")" != "keep custom config" ]; then
+    fail "custom config content changed during install"
+  fi
+
+  if [ "$(cat "$private_aliases")" != "alias private-marker='printf private'" ]; then
+    fail "private alias content changed during install"
+  fi
+
+  if [ "$(cat "$backup_vimrc")" != "old vim config" ]; then
+    fail "backed-up vim config content changed"
+  fi
+
+  backup_count_before=$(find "$home_dir/.dot-files-backup" -mindepth 1 -maxdepth 1 -type d | wc -l)
+  HOME="$home_dir" bash "$script_under_test" >/dev/null
+  backup_count_after=$(find "$home_dir/.dot-files-backup" -mindepth 1 -maxdepth 1 -type d | wc -l)
+
+  if [ "$backup_count_after" -ne "$backup_count_before" ]; then
+    fail "an idempotent second install should not create another backup"
+  fi
+}
+
+run_starts_cleanly_without_optional_tools_test() {
+  local case_dir="$tmp_dir/clean-shell-startup"
+  local home_dir="$case_dir/home"
+
+  setup_dotfiles_repo "$home_dir" "$case_dir/origin.git"
+  HOME="$home_dir" bash "$script_under_test" >/dev/null
+
+  HOME="$home_dir" USER="test-user" ZDOTDIR="$home_dir" zsh -lic 'print -r -- SHELL_READY' >"$case_dir/stdout" 2>"$case_dir/stderr"
+
+  if [ "$(cat "$case_dir/stdout")" != "SHELL_READY" ]; then
+    fail "a login zsh shell should start successfully"
+  fi
+
+  if [ -s "$case_dir/stderr" ]; then
+    cat "$case_dir/stderr" >&2
+    fail "a login zsh shell should not print errors when optional tools are absent"
+  fi
+}
+
 run_preserves_existing_auth_test
 run_installs_settings_on_fresh_home_test
 run_repairs_legacy_pi_symlink_test
+run_preserves_existing_directories_and_backs_up_conflicts_test
+run_starts_cleanly_without_optional_tools_test
 
-echo "clone_and_link Pi tests passed"
+echo "clone_and_link tests passed"

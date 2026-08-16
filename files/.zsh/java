@@ -1,1 +1,11 @@
-export PATH="/opt/homebrew/opt/openjdk@25/bin:$PATH"
+for java_bin in \
+  /opt/homebrew/opt/openjdk@25/bin \
+  /usr/local/opt/openjdk@25/bin \
+  /home/linuxbrew/.linuxbrew/opt/openjdk@25/bin; do
+  if [ -d "$java_bin" ]; then
+    export PATH="$java_bin:$PATH"
+    break
+  fi
+done
+
+unset java_bin

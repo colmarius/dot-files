@@ -2,21 +2,33 @@ export PATH="$HOME/.pyenv/shims:${PATH}"
 
 # Setup: pyenv
 export PYENV_SHELL=zsh
-source '/opt/homebrew/opt/pyenv/completions/pyenv.zsh'
-command pyenv rehash 2>/dev/null
-pyenv() {
-  local command
-  command="${1:-}"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
+if command -v pyenv >/dev/null 2>&1; then
+  for pyenv_completion in \
+    /opt/homebrew/opt/pyenv/completions/pyenv.zsh \
+    /usr/local/opt/pyenv/completions/pyenv.zsh \
+    /home/linuxbrew/.linuxbrew/opt/pyenv/completions/pyenv.zsh; do
+    if [ -f "$pyenv_completion" ]; then
+      source "$pyenv_completion"
+      break
+    fi
+  done
+  unset pyenv_completion
 
-  case "$command" in
-  rehash|shell)
-    eval "$(pyenv "sh-$command" "$@")"
-    ;;
-  *)
-    command pyenv "$command" "$@"
-    ;;
-  esac
-}
+  command pyenv rehash 2>/dev/null
+  pyenv() {
+    local command
+    command="${1:-}"
+    if [ "$#" -gt 0 ]; then
+      shift
+    fi
+
+    case "$command" in
+    rehash|shell)
+      eval "$(pyenv "sh-$command" "$@")"
+      ;;
+    *)
+      command pyenv "$command" "$@"
+      ;;
+    esac
+  }
+fi

@@ -5,6 +5,15 @@ export RUBY_GC_MALLOC_LIMIT=1000000000
 export RUBY_HEAP_FREE_MIN=500000
 
 if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
-  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-  source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+  for chruby_dir in \
+    /opt/homebrew/opt/chruby/share/chruby \
+    /usr/local/opt/chruby/share/chruby \
+    /home/linuxbrew/.linuxbrew/opt/chruby/share/chruby; do
+    if [ -r "$chruby_dir/chruby.sh" ]; then
+      source "$chruby_dir/chruby.sh"
+      [ -r "$chruby_dir/auto.sh" ] && source "$chruby_dir/auto.sh"
+      break
+    fi
+  done
+  unset chruby_dir
 fi

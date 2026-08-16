@@ -5,13 +5,15 @@
 
 set -euo pipefail
 
-missing=()
-command -v shellcheck >/dev/null 2>&1 || missing+=(shellcheck)
-command -v zsh >/dev/null 2>&1 || missing+=(zsh)
+packages=()
 
-if [ "${#missing[@]}" -gt 0 ]; then
-  sudo apt-get update -qq
-  sudo apt-get install -y -qq "${missing[@]}"
+command -v shellcheck >/dev/null 2>&1 || packages+=(shellcheck)
+command -v zsh >/dev/null 2>&1 || packages+=(zsh)
+
+if [ "${#packages[@]}" -gt 0 ]; then
+  echo "Installing shell test dependencies: ${packages[*]}"
+  apt-get update
+  apt-get install -y "${packages[@]}"
+else
+  echo "Shell test dependencies are already installed"
 fi
-
-echo "Setup complete: shellcheck and zsh are available."
