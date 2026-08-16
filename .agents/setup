@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Orb environment setup: install tools required by the validation checklist.
+# - shellcheck: used by scripts/lint-shell.sh and scripts/lint-shell-all.sh
+# - zsh: used by scripts/test-npm-run-local-completion.sh
+
+set -euo pipefail
+
+missing=()
+command -v shellcheck >/dev/null 2>&1 || missing+=(shellcheck)
+command -v zsh >/dev/null 2>&1 || missing+=(zsh)
+
+if [ "${#missing[@]}" -gt 0 ]; then
+  sudo apt-get update -qq
+  sudo apt-get install -y -qq "${missing[@]}"
+fi
+
+echo "Setup complete: shellcheck and zsh are available."

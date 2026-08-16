@@ -72,7 +72,7 @@ install_pi_settings_file() {
     echo_info "Processing Pi settings file"
     mkdir -p "$dest_dir"
 
-    if ln -vsf "$src" "$dest" 2>/dev/null; then
+    if ln -vsfn "$src" "$dest" 2>/dev/null; then
       echo_info "✓ Created Pi settings symlink"
       return 0
     fi
@@ -125,8 +125,11 @@ pushd "$HOME"
     if [ -d "$f" ]; then
       echo_info "Processing directory: $basename_f"
 
-      # Try to create symlink for directory
-      if ln -vsf "$f" . 2>/dev/null; then
+      # Try to create symlink for directory.
+      # -n (no-dereference) keeps re-runs idempotent: without it, BSD/macOS ln
+      # follows an existing symlink-to-directory destination and creates a
+      # nested self-referential link inside the repo checkout instead.
+      if ln -vsfn "$f" . 2>/dev/null; then
         echo_info "✓ Created symlink for directory: $basename_f"
       else
         echo_warn "Symlink failed for directory: $basename_f"
@@ -147,8 +150,9 @@ pushd "$HOME"
     else
       echo_info "Processing file: $basename_f"
 
-      # For files, always try symlink first
-      if ln -vsf "$f" . 2>/dev/null; then
+      # For files, always try symlink first (-n guards against an existing
+      # symlink-to-directory destination being followed on BSD/macOS ln)
+      if ln -vsfn "$f" . 2>/dev/null; then
         echo_info "✓ Created symlink for file: $basename_f"
       else
         echo_warn "Symlink failed for file: $basename_f"
