@@ -11,6 +11,7 @@ After installing [brew] simply run:
     brew install diff-so-fancy
     brew install ripgrep
     brew install shellcheck
+    brew install ffmpeg
     brew install nvm
     brew install pyenv
     brew install chruby
@@ -34,6 +35,10 @@ Terminal tools:
 - [ripgrep]: recursively searches directories for a regex pattern while respecting your gitignore
 - [shellcheck]: static analysis for shell scripts
 - [semgrep]: lightweight static analysis for many languages
+
+Media tools
+
+- [ffmpeg]: record, convert, and stream audio and video
 
 Web development
 
@@ -83,6 +88,7 @@ Pi setup
 [diff-so-fancy]: https://github.com/so-fancy/diff-so-fancy
 [ripgrep]: https://github.com/BurntSushi/ripgrep
 [shellcheck]: https://www.shellcheck.net
+[ffmpeg]: https://ffmpeg.org/
 [nvm]: https://github.com/nvm-sh/nvm#install--update-script
 [pyenv]: https://github.com/pyenv/pyenv
 [chruby]: https://github.com/postmodern/chruby

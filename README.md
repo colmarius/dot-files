@@ -45,7 +45,7 @@ Temporarily disable the local `npm run` completion override:
 
     export NPM_RUN_LOCAL_COMPLETION_DISABLE=1
 
-Optionally, follow steps in [SETUP.md](SETUP.md)
+Follow [SETUP.md](SETUP.md) to install the macOS tool dependencies, including FFmpeg via Homebrew.
 
 ## Credits
 
