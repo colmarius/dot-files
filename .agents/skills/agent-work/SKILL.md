@@ -1,6 +1,6 @@
 ---
 name: agent-work
-description: "Manages durable work items, plans, execution, and handoffs. Use when repository context must survive or coordinate work. Triggers on: create work item, implement work item, requirements brief, refine plan, handoff prompt, stress-test plan."
+description: "Manages durable work items, plans, execution, and handoffs. Use when repository context must survive or coordinate work. Triggers on: create work item, continue work item, close work item, refine plan, handoff prompt, stress-test plan."
 ---
 
 # Agent Work
@@ -32,7 +32,7 @@ Create a work item when resumption, coordination, handoff, auditability, durable
    - Delegate only when isolation, parallelism, durable follow-up, or a different execution environment genuinely helps. Follow **Coordinating Workers And Reviewers** below.
    - Follow [handoff context](references/handoff-context.md) when a fresh thread or worker is useful.
 6. **Finish the work**
-   - Reconcile plan checkboxes and observed evidence, promote reusable outcomes, and follow **Completing And Removing Work Items**.
+   - Reconcile plan checkboxes and observed evidence, promote reusable outcomes, and follow [Closing Completed Work](#closing-completed-work).
 
 ## Coordinating Workers And Reviewers
 
@@ -52,7 +52,7 @@ Close a work item only after implementation and verification are finished. First
 
 Use `close-work.sh --check` as the closeout preflight. If it succeeds, rerun the command without `--check`; it stages the folder removal but does not create a commit. Record that staged removal in its own commit so the preceding snapshot remains reachable in history.
 
-Closeout requires authority to commit the removal. The command rejects dirty repositories and leaves ignored or untracked material untouched. When planned history rewriting would erase the final snapshot, either preserve it on a retained ref or keep the completed folder in the tree.
+Follow the [completion and removal contract](../../work/AGENTS.md#completion-and-removal) for authority to make both commits and preservation of the snapshot through history rewriting. The command rejects dirty repositories and leaves ignored or untracked material untouched.
 
 ## Scripts
 
