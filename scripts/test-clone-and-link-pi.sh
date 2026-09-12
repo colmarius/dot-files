@@ -201,7 +201,14 @@ run_starts_cleanly_without_optional_tools_test() {
   setup_dotfiles_repo "$home_dir" "$case_dir/origin.git"
   HOME="$home_dir" bash "$script_under_test" >/dev/null
 
-  HOME="$home_dir" USER="test-user" ZDOTDIR="$home_dir" zsh -lic 'print -r -- SHELL_READY' >"$case_dir/stdout" 2>"$case_dir/stderr"
+  # Skip global startup files: Ubuntu's /etc/zsh/zshrc runs compinit before
+  # our dotfiles and can prompt about runner-owned completion directories.
+  # Keep user startup files enabled and verify they initialize completion.
+  HOME="$home_dir" USER="test-user" ZDOTDIR="$home_dir" zsh -dlic '
+    (( $+functions[compdef] )) || exit 1
+    [[ ${_comps[npm]} == _npm_completion ]] || exit 1
+    print -r -- SHELL_READY
+  ' >"$case_dir/stdout" 2>"$case_dir/stderr"
 
   if [ "$(cat "$case_dir/stdout")" != "SHELL_READY" ]; then
     fail "a login zsh shell should start successfully"
