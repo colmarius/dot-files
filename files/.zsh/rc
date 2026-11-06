@@ -47,6 +47,11 @@ if [[ "$OSTYPE" == darwin* ]]; then
     $path
   )
 
+  # Prefer Homebrew OpenSSL 3 over Apple's LibreSSL.
+  if [[ -x /opt/homebrew/opt/openssl@3/bin/openssl ]]; then
+    path=(/opt/homebrew/opt/openssl@3/bin $path)
+  fi
+
   typeset -U manpath
   manpath=(
     /usr/local/share/man
